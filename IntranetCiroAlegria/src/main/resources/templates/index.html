@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Página de la Institución</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            background-color: #FEF3E2;
+        }
+
+        h1 {
+            color: #ff9900;
+            text-align: center;
+            padding: 20px;
+            font-size: 50px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: rgba(33, 33, 33, 1);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            padding-top: 20px;
+        }
+
+        .navbar-brand {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav {
+            margin-top: 30px;
+        }
+
+        .navbar-nav .nav-link {
+            margin: 10px 0;
+            color: white;
+            transition: color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: rgba(252, 242, 201, 1);
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            width: calc(100% - 260px);
+        }
+
+        .logo {
+            width: 15%;
+            height: auto;
+            margin: 0 auto 5px auto;
+            display: block;
+        }
+
+        .banner img {
+            width: 100%;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .welcome-message,
+        .intranet-info {
+            margin-top: 20px;
+            background-color: rgba(252, 242, 201, 1);
+            padding: 30px;
+            font-size: 24px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .intranet-info {
+            border: 2px solid #ff9900; /* Borde destacado */
+            transition: transform 0.3s; /* Efecto al pasar el mouse */
+        }
+        
+        .social-icons {
+            text-align: center;
+            font-size: 70px;
+            margin: 10px 0;
+        }
+
+        .social-icons a {
+            margin-right: 15px;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        footer {
+            background-color: rgba(252, 242, 201, 1);
+            padding: 20px;
+            margin-top: 20px;
+            border-top: 2px solid #ff9900;
+        }
+
+        footer h5 {
+            margin-bottom: 15px;
+        }
+
+        .navbar-nav .nav-link i {
+            margin-right: 10px; /* Espacio entre el icono y el texto */
+        }
+
+        .user-info {
+            padding: 15px;
+            margin-right: 10px;
+            background-color: rgba(33, 33, 33, 1); /* Mismo color que el sidebar */
+            color: white; /* Texto en blanco */
+            border-radius: 5px; /* Bordes redondeados */
+            text-align: center;
+            transition: color 0.3s; /* Transición para hover */
+        }
+
+        .user-info:hover {
+            color: rgba(252, 242, 201, 1); /* Color de fondo al pasar el mouse */
+        }
+    </style>
+    <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<body>
+    <div class="sidebar">
+        <img src="/images/logo.png" alt="Logo de EduConnect" class="logo">
+        <nav class="navbar flex-column">
+            <a class="navbar-brand" href="#">I. E. N° 2037 <br> "CIRO ALEGRÍA"</a>
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/index}"><i class="fas fa-home"></i> Página de la Institución</a>
+                <a class="nav-item nav-link" th:href="@{/listadoDo}"><i class="fas fa-chalkboard-teacher"></i> Docentes</a>
+                <a class="nav-item nav-link" th:href="@{/listado}"><i class="fas fa-user-graduate"></i> Alumnos</a>
+                <a class="nav-item nav-link" th:href="@{/cursos}"><i class="fas fa-book"></i> Cursos</a>
+                <a class="nav-item nav-link" th:href="@{/roles}"><i class="fas fa-users-cog"></i> Roles</a>
+                <a class="nav-item nav-link" th:href="@{/logout}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </div>
+            <div class="user-info mt-auto" th:if="${nombreCompleto != null}">
+                <i class="fas fa-user"></i> Bienvenido, <span th:text="${nombreCompleto}"></span>!
+            </div>
+        </nav>
+    </div>
+
+    <div class="content">
+        <div class="banner">
+            <img src="/images/banner.png" alt="Banner de la Institución" class="img-fluid">
+        </div>
+
+        <!-- Nueva Sección de Intranet -->
+        <div class="intranet-info">
+    <h2><i class="fas fa-laptop"></i> Presentamos la Nueva Intranet</h2>
+    <p>Nos complace anunciar el desarrollo de nuestra nueva intranet, una herramienta innovadora diseñada para mejorar la comunicación y facilitar el acceso a información clave de nuestra institución. Este proyecto ha sido impulsado por Piero Linares, un exalumno destacado de nuestra institución, cuya pasión por la educación y la tecnología lo ha llevado a crear esta plataforma.</p>
+    <p>Piero ha dedicado su tiempo y esfuerzo en el diseño y desarrollo de esta intranet, asegurándose de que incluya módulos esenciales para la gestión de actividades, acceso a material educativo y un espacio de interacción enriquecedora entre docentes, estudiantes y padres de familia. Gracias a su visión y compromiso, esta herramienta promete transformar la experiencia educativa en nuestra comunidad. ¡Pronto podrán conocer más sobre sus funcionalidades y cómo beneficiarse de ellas!</p>
+</div>
+
+        <!-- Sección de Bienvenida -->
+        <h1>Bienvenidos</h1>
+        <div class="welcome-message">
+            <p>Estimada Comunidad de parte de todo el personal directivo, docente y administrativo de nuestra institución reciban un afectuoso saludo de bienvenida; deseando para ustedes y sus familias que durante todo el año 2022 la salud y la tranquilidad los acompañen.</p>
+            <p>El presente año nuevamente como comunidad educativa estamos enfrentados al reto de asumir esta nueva “normalidad” producto de la Pandemia; cada uno desde su rol y todos con un objetivo común, el cual es ofrecer a nuestros niños y jóvenes una formación integral que responda a las necesidades y aporte a sus proyectos de vida.</p>
+        </div>
+
+        <!-- Redes Sociales -->
+        <div class="social-icons">
+            <h5>Síguenos en nuestras redes sociales</h5>
+            <a href="https://www.facebook.com/profile.php?id=100079880631485" target="_blank" style="color: #4267B2;"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.youtube.com/channel/UCXxvvJ5EKH-PHIjBgORUsDg/featured" target="_blank" style="color: #FF0000;"><i class="fab fa-youtube"></i></a>
+        </div>
+
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>I. E. N° 2037 "CIRO ALEGRÍA"</h5>
+                        <p><strong>Dirección:</strong> AVENIDA TÚPAC AMARU KM 19 CARABAYLLO</p>
+                        <p><strong>Teléfono:</strong> (01) 5-295-314</p>
+                        <p><strong>Correo:</strong> <a href="mailto:contacto@2037ciroalegria.edu.pe">contacto@2037ciroalegria.edu.pe</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.754323490421!2d-77.065928!3d-11.9849487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c90862c9b6a9%3A0xb2b8b8d6c1ab0a5a!2sInstituci%C3%B3n%20Educativa%202037%20Ciro%20Alegria!5e0!3m2!1sen!2spe!4v1690302957644!5m2!1sen!2spe" width="100%" height="250" style="border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFZ6E+rFJ5m2kRt6T9X6pajs/wo02twto0B+3RItPP3a3ExglN9Awb6w7g" crossorigin="anonymous"></script>
+</body>
+</html>
